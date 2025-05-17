@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body, button, .pixel { font-family: 'Press Start 2P', monospace !important; }
+    .skew-dash {
+      border: 2px dashed #e94f4f;
+      border-radius: 1rem;
+      transform: skewY(3deg);
+    }
+  </style>
+</head>
+<body class="bg-[#fdf1d6]">
+  <!-- Top Bar -->
+  <div class="w-full bg-[#086788] rounded-br-3xl flex items-center justify-between px-8 py-2" style="height: 110px;">
+    <div class="relative w-24 h-24 flex items-center justify-center">
+      <img src="/assets/JC logo.png"
+      alt="Logo"
+      class="w-24 h-24 rounded-full object-cover" />
+    
+    </div>
+    
+    <div class="flex-1 flex justify-center">
+      <div>
+        <div class="text-3xl text-[#1ca9c9] font-bold pixel leading-none text-center">Jockheed</div>
+        <div class="text-3xl text-[#e94f4f] font-bold pixel leading-none text-center">Chartin <img src="/assets/Pixelstar.png" alt="Star" class="inline-block align-middle ml-2" style="height:2.2rem; width:2.2rem;" /></div>
+      </div>
+    </div>
+    <span class="flex items-center justify-center w-14 h-14 bg-[#1ca9c9] rounded-full">
+      <i data-lucide="user" class="w-10 h-10 text-[#F0C808]"></i>
+    </span>
+  </div>
+
+  <!-- Sidebar as a floating card -->
+  <div class="absolute top-32 left-0">
+    <aside class="bg-[#1ca9c9] rounded-3xl shadow-lg px-8 py-8">
+      <div class="flex flex-col gap-8 items-center">
+        <button class="pixel sidebar-selected text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105 text-center justify-center flex">Dashboard</button>
+        <button class="pixel text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105 text-center">Missions</button>
+        <button class="pixel text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105 text-center justify-center flex">Inventory</button>
+        <button class="pixel text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105 text-center">Comms</button>
+        <button class="pixel text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105 text-center">Reports</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <div class="flex justify-center items-start gap-16 ml-96 mt-20">
+    <!-- Timeline Scrollable Section -->
+    <div class="relative w-[420px] h-[380px] overflow-y-auto snap-y snap-mandatory flex flex-col items-center" id="timeline-scroll">
+      <!-- Timeline cards will be injected here by JS -->
+    </div>
+    <!-- Notifications -->
+    <div class="flex flex-col items-center w-96">
+      <button class="flex items-center justify-center gap-2 w-56 py-3 mb-8 rounded-[32px] shadow-[0_6px_0_#0a4d0a] bg-[#13950F] transition-all hover:scale-105" style="font-family: 'Press Start 2P', monospace; color: #FFF1D0; font-size: 1rem;">
+        <i data-lucide="map" class="w-7 h-7 text-[#FFF1D0]"></i>
+        <span>View MAP</span>
+      </button>
+      <aside class="w-96 flex flex-col items-center">
+        <div class="bg-[#DD1C1A] rounded-2xl shadow-lg p-6 w-80 mt-0">
+          <div class="text-white text-xl font-bold mb-2 pixel">Activity Status</div>
+          <svg class="w-8 h-8 text-yellow-300 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 7.165 6 9.388 6 12v2.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+          </svg>
+          <div class="bg-[#fdf1d6] rounded-xl p-4">
+            <ul class="text-black text-base font-bold pixel list-disc pl-5">
+              <li>Luis flagged a Conflict</li>
+              <li>Salma Assigned a Unit</li>
+              <li>Hritika created a request</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <script src="/pages/admin-dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.lucide) lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

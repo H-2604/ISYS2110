@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (response.ok) {
           alert('Login successful! Welcome, ' + data.fullName);
-          window.location.href = '/index.html'; // Redirect to landing page
+          window.location.href = '/admin-dashboard.html';
         } else {
           alert(data.error || 'Login failed');
         }
