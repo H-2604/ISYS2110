@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Communications</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body, button, .pixel { font-family: 'Press Start 2P', monospace !important; }
+    .chat-message {
+      border-radius: 1rem;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .message-input {
+      background-color: #d9d9d9;
+      border-radius: 2rem;
+      padding: 0.75rem 1.5rem;
+    }
+    .channel-item {
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .channel-item:hover {
+      transform: translateX(5px);
+    }
+    .channel-active {
+      color: #F0C808;
+    }
+  </style>
+</head>
+<body class="bg-[#fdf1d6] h-screen flex flex-col overflow-hidden">
+  <!-- Top Bar -->
+  <div class="w-full bg-[#086788] rounded-br-3xl flex items-center justify-between px-8 py-2" style="height: 110px;">
+    <div class="relative w-24 h-24 flex items-center justify-center">
+      <img src="/assets/JC logo.png"
+      alt="Logo"
+      class="w-24 h-24 rounded-full object-cover" />
+    </div>
+    
+    <div class="flex-1 flex justify-center">
+      <div>
+        <div class="text-3xl text-[#F0C808] font-bold pixel leading-none text-center">COMMUNICATION</div>
+      </div>
+    </div>
+    <span class="flex items-center justify-center w-14 h-14 bg-[#1ca9c9] rounded-full">
+      <i data-lucide="user" class="w-10 h-10 text-[#F0C808]"></i>
+    </span>
+  </div>
+
+  <!-- Nav Button to show sidebar -->
+  <button id="show-nav" class="fixed top-28 left-3 z-50 bg-[#1ca9c9] p-2 rounded-full shadow-lg">
+    <i data-lucide="menu" class="w-6 h-6 text-[#F0C808]"></i>
+  </button>
+
+  <!-- Navigation Sidebar (Hidden by default) -->
+  <div id="nav-sidebar" class="fixed top-0 left-0 h-full w-64 bg-[#1ca9c9] rounded-r-3xl shadow-lg transform -translate-x-full transition-transform duration-300 z-40 flex flex-col items-center py-8 px-4">
+    <div class="mt-20 flex flex-col gap-6 items-center w-full">
+      <button onclick="window.location.href='admin-dashboard.html'" class="pixel text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105">Dashboard</button>
+      <button onclick="window.location.href='missions.html'" class="pixel text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105">Missions</button>
+      <button onclick="window.location.href='inventory.html'" class="pixel text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105">Inventory</button>
+      <button class="pixel sidebar-selected text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105">Comms</button>
+      <button onclick="window.location.href='reports.html'" class="pixel text-[#F0C808] font-bold text-lg bg-[#0b5c6b] rounded-full px-12 py-4 w-56 shadow-[2px_2px_0_#F0C808] transition-all hover:scale-105">Reports</button>
+    </div>
+    <button id="close-nav" class="absolute top-4 right-4 bg-[#0b5c6b] p-2 rounded-full">
+      <i data-lucide="x" class="w-5 h-5 text-[#F0C808]"></i>
+    </button>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Left Sidebar - Channels -->
+    <div class="w-64 bg-[#086788] text-white p-4 flex flex-col">
+      <div class="text-2xl pixel mb-6 text-center mt-10">CHANNELS</div>
+      
+      <div class="flex flex-col space-y-4 mt-4">
+        <div class="channel-item channel-active flex items-center">
+          <span class="text-lg mr-2">#</span>
+          <span class="text-lg">General</span>
+        </div>
+        <div class="channel-item flex items-center" data-channel="mission-01">
+          <span class="text-lg mr-2">#</span>
+          <span class="text-lg">Mission 01</span>
+        </div>
+        <div class="channel-item flex items-center" data-channel="mission-02">
+          <span class="text-lg mr-2">#</span>
+          <span class="text-lg">Mission 02</span>
+        </div>
+        <div class="channel-item flex items-center" data-channel="mission-03">
+          <span class="text-lg mr-2">#</span>
+          <span class="text-lg">Mission 03</span>
+        </div>
+      </div>
+      
+      <div class="mt-auto flex items-center text-xs text-[#13950F] font-bold">
+        <i data-lucide="lock" class="w-4 h-4 mr-2"></i>
+        <span>Encryption Secured</span>
+      </div>
+    </div>
+    
+    <!-- Middle - Chat Area -->
+    <div class="flex-1 flex flex-col p-4 overflow-hidden">
+      <!-- Chat Messages Container -->
+      <div class="bg-[#e9debd] rounded-2xl h-full flex flex-col p-4">
+        <div class="flex-1 overflow-y-auto mb-4 px-4" id="chat-container">
+          <!-- Messages will be populated by JS -->
+        </div>
+        
+        <!-- Message Input Area -->
+        <div class="px-4 py-3">
+          <div class="flex items-center bg-[#d9d9d9] rounded-full px-6 py-3">
+            <input type="text" id="message-input" class="flex-1 bg-transparent outline-none pixel text-sm text-black" placeholder="Type your message...">
+            <button id="send-button" class="ml-4 bg-[#086788] rounded-full p-2 transform transition-transform hover:scale-110">
+              <i data-lucide="send" class="w-6 h-6 text-[#F0C808]"></i>
+            </button>
+            <button id="attachment-button" class="ml-2 bg-[#d9d9d9] rounded-full p-2 transform transition-transform hover:scale-110">
+              <i data-lucide="paperclip" class="w-6 h-6 text-[#086788]"></i>
+            </button>
+            <!-- Hidden file input -->
+            <input type="file" id="file-input" class="hidden" accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right Sidebar - User Info -->
+    <div class="w-64 p-4 flex flex-col items-center">
+      <div class="bg-[#06AED5] rounded-2xl p-6 w-full">
+        <div class="mb-6">
+          <div class="bg-[#086788] rounded-full py-2 px-4 flex items-center justify-between">
+            <span class="text-[#F0C808] text-sm">Search</span>
+            <i data-lucide="search" class="w-5 h-5 text-[#F0C808]"></i>
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <div id="current-user" class="text-lg pixel text-[#F0C808]">Ankit</div>
+          <div id="current-mission" class="text-md pixel text-[#F0C808]">[OS:01]</div>
+          <div class="text-md pixel text-[#F0C808] mt-2">Status report?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/pages/comms.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.lucide) lucide.createIcons();
+      
+      // Navigation sidebar toggle
+      const showNavBtn = document.getElementById('show-nav');
+      const closeNavBtn = document.getElementById('close-nav');
+      const navSidebar = document.getElementById('nav-sidebar');
+      
+      showNavBtn.addEventListener('click', function() {
+        navSidebar.classList.remove('-translate-x-full');
+        showNavBtn.classList.add('hidden'); // Hide the nav button when sidebar is open
+      });
+      
+      closeNavBtn.addEventListener('click', function() {
+        navSidebar.classList.add('-translate-x-full');
+        setTimeout(() => {
+          showNavBtn.classList.remove('hidden'); // Show the nav button after sidebar is closed
+        }, 300); // Wait for transition to complete
+      });
+    });
+  </script>
+</body>
+</html>
